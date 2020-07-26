@@ -105,3 +105,58 @@ devDependencies 이런게 생기는데, 이건 내가 필요한게 된다.
     "start": "nodemon --exec babel-node index.js" 이렇게 바꾸자 scripts 를.
 
     그러면 저장할때마다 서버 재시작 됨. 개씹지리는 모스비구요
+
+///////////////////////////////// Middle Ware ///////////////////////////////////
+
+Epxress 에서 Middle ware 는 처리가 끝날 때까지 연결되어 있는 어떤 것 (?) ... 시벌?
+우선 어떻게 연결이 시작되는가? 이다, 어떻게 request 가 시작되는지..
+
+시작은 브라우저부터이다. 
+
+User 가 웹사이트에 접속하려고 할 때, 브라우저는 index.js 를 실행하려 할테고, 
+app 객체 (express()) 는 home route ("/") 가 존재하는지 살펴보게 된다. 그 다음 home 에 연결된 handleHome 메소드를 그다음에 실행한다.
+handleHome 은 그다음에 app 가 건네준 respond object 를 통해서  "hello 시발놈아" 를 응답한다.
+
+하지만 보통 연결은 그 흐름이 그렇게 간단하게 되지 않는다. 
+유저와 마지막 응답사이에 중간과정이 있게된다. (복잡한 웹사이트들에는 있나봄. 지금 좆밥코스라서 감이안오는 것이라 생각함.)
+이게 바로 middle ware 다.
+///
+그렇게 해서 만들어 보았다 (간단히 get 함수에 핸들러 두개를 두면 된다.)
+근데 중요한 것은, middleware 에게 request 가 왔을 때 , 그 request를 가지고 respond를 할 권한을 줘야 한다는 것이다. 
+
+
+express의 모든 route와 그를 처리하는 handler들은 기본적으로 3개의 object를 app 로부터 건네 받는데, next라는 것이 있다. 
+단지 마지막으로 respond를 하는 handler 들에는 next를 쓰지 않는다. 
+
+ next(); 를 미들웨어에서 하면 다음으로 진행된다.
+
+middleware 는 양파라고 생각하면 됨, 최종 respond 까지 여러겹의 layer 가 있는 것이고, middleware 가 그 layer 이다.
+양파의 중심에 있는 최종함수가 user 에게 무엇인가를 return 하는 것이다. 
+물론 반환할게 없거나 (최종함수) , 미들웨어함수가 next() 를 안해주면 계속 로딩으로 뜰것임.
+
+미들웨어는 내가 원하는만큼 가질 수 가 있다. 왜그렇게 하냐, 그게 존나 날 편하게 해주기 때문이다. 
+예를들어 미들웨어는 유저의 로그인여부를 체크하기도 하고, 파일 전송중간에 가로채기도 하며, (딴데로 업로드)
+로그를 작성하기도 한다.
+
+또한 아래를 유념하자.
+
+const betweenTest = (req, res, next) => {
+  console.log("I only tested before profile.");
+  next();
+};
+
+//app.get("/", betweenHome, handleHome); // "/" 는 home url 주소. , 브라우저가 get 함수를 실행했으므로 (user 요청) 응답해야됨.
+// betweenHome 은 request 와 respond 사이에 껴있음. 오직 "/" route 에만 작용.
+
+app.use(betweenHome); // 이렇게 하면, 모든 웹사이트 응답에 사이에 끼게 됨.
+// 여기서 순서가 중요한데 get 에서 route 를 찾기전에 이 middle ware 들이 실행되는 것이다.
+// request 가 와서 app 는 "/" 와 "/profile" route 를 찾기 전에 betweenHome 미들웨어를 무조건 실행하게 된다. 이게 더 뒤로 가거나 하면 안됨
+// 그리고 route 전에는 원하는 만큼의 middleware를 써도된다.
+
+app.get("/", handleHome);
+
+app.use(betweenTest); // 이새끼는 home 응답에서는 안되고 /profile 찾을때만 수행이 되는 미들웨어임.
+
+app.get("/profile", handleProfile); // "/profile" 이렇게 route 가 생성 (단순히 객체가 생성된다고 생각하면 될듯) 되고 handler 와 묶임.
+
+app.listen(PORT, handleListening); // port Number Listen...
