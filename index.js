@@ -1,15 +1,27 @@
-const express = require("express"); //require : nodemodule을 어딘가에서 가져오는거 > 여기서는 내 폴더에서 찾으려고 할 것.
+// const express = require("express"); //require : nodemodule을 어딘가에서 가져오는거 > 여기서는 내 폴더에서 찾으려고 할 것.
+import express from "express"; //이게 최신의 JS 버전
+
 const app = express(); // 찾은거니까 express 함수써서 express 객체 생성
 
 const PORT = 4000;
 
-function handleListening() {
+const handleListening = () =>
   console.log(`Listening on: http://localhost:${PORT}`);
+
+function handleHome(req, res) {
+  // get,post 함수 핸들러는 argument 가 두개임 1. request object , 2. respond object.
+  // request object : post 시 user 정보 (아이디 패스워드 등) 같은 것들 포함
+  // respond object : server 에서 응답 할 때 사용되는 객체
+  //console.log(req);
+  res.send("hello 시발놈아"); // 웹사이트처럼 작동하게 해주려면 html css 파일을 send 하면 됨.
 }
 
-// const handleListening = () => {
-// console.log("seeval yi gun amamdo Lamda sik?");
-// }
+// ES6 에서 새로 도입된 함수 표현식. (ARROW FUNCTION, 훨씬 보기좋다.)
+const handleProfile = (req, res) => res.send("You are on my profile");
+
+app.get("/", handleHome); // "/" 는 home url 주소. , 브라우저가 get 함수를 실행했으므로 (user 요청) 응답해야됨.
+
+app.get("/profile", handleProfile); // "/profile" 이렇게 route 가 생성 (단순히 객체가 생성된다고 생각하면 될듯) 되고 handler 와 묶임.
 
 app.listen(PORT, handleListening); // port Number Listen...
 

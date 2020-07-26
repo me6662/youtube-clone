@@ -5,9 +5,15 @@
   "main": "index.js",
   "author": "Yang Donggyu",
   "dependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
     "express": "^4.17.1"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon --exec babel-node index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
