@@ -120,7 +120,7 @@ handleHome 은 그다음에 app 가 건네준 respond object 를 통해서  "hel
 하지만 보통 연결은 그 흐름이 그렇게 간단하게 되지 않는다. 
 유저와 마지막 응답사이에 중간과정이 있게된다. (복잡한 웹사이트들에는 있나봄. 지금 좆밥코스라서 감이안오는 것이라 생각함.)
 이게 바로 middle ware 다.
-///
+
 그렇게 해서 만들어 보았다 (간단히 get 함수에 핸들러 두개를 두면 된다.)
 근데 중요한 것은, middleware 에게 request 가 왔을 때 , 그 request를 가지고 respond를 할 권한을 줘야 한다는 것이다. 
 
@@ -139,6 +139,20 @@ middleware 는 양파라고 생각하면 됨, 최종 respond 까지 여러겹의
 로그를 작성하기도 한다.
 
 또한 아래를 유념하자.
+
+// Middleware 만들기 (request 와 응답 사이의 과정)
+const betweenHome = (req, res, next) => {
+  console.log("Between");
+  next(); // 다음을 진행하라는 소리.
+};
+
+const betweenTest = (req, res, next) => {
+  console.log("I only test middleware procedure.");
+  next();
+};
+
+//app.get("/", betweenHome, handleHome); // "/" 는 home url 주소. , 브라우저가 get 함수를 실행했으므로 (user 요청) 응답해야됨.
+// betweenHome 은 request 와 respond 사이에 껴있음. 오직 "/" route 에만 작용.
 
 const betweenTest = (req, res, next) => {
   console.log("I only tested before profile.");
@@ -217,8 +231,16 @@ app.get("/", middleware, handleHome);
 보통 브라우저에서 route 를 찾아서 응답요청을 할때, req 를 통해서 특정 form 을 보낸다. form 패스워드나 아이디가 될수도 있고 그런데
 이걸 받기 위해서는 body-parser 라는 것이 필요하게 된다.
 말 그대로 body 에서 데이터를 받아오는(?) 시팔 형... 뭔소리야
+> 이걸 쓸때는 정해줘야할 옵션이 있음
+> json , text 등 여러가지에 대해 이해해야됨 왜나면 서버는 user 가 무엇을 전송하는지 알아야 되기 때문임
+
+- 만약에 json 을 전송한다면, 서버가 json 을 이해하길 바래야됨.
+- 만약에 html Form 을 전송한다면, 서버가 url encoded 라는걸 이해하길 바래야됨.
+- 그래서 이것들이 우리가 서버를 설정하는 내용이며 서버가 유저로부터 받은 데이터를 이해하는 방법.
+
 
 2. npm install cookie-parser
 유저정보의 경우는 쿠키에 저장하게 됨. 세션을 다루기 위해서 (?) 시팔 형...
 
+- 이거는 유저로부터 받은 쿠키를 이해하는 방법.
 
