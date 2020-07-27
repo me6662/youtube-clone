@@ -1,0 +1,76 @@
+
+///////////////////////////////// Javascript export 하기 ///////////////////////////////////
+
+Javascript 에는 모듈이라는게 있어서 코드를 공유할 수 있음, 다른파일에서의 코드를 가져다가 사용할수 있다는 말. 
+예를들어서 우리는 express , morgan, helmet 등을 불러다가 썼다. 이경우엔 물론 node_modules 에서 불러다가 썼음.
+
+우리가 할 것은 app.js 를 init.js 에서 사용하는 것!
+
+밖으로 공유하고 싶은 객체를 
+
+export default app 이렇게 하면 밖에서 import 할 수 있음.
+
+*** export 에는 크개 named 와 default 두 가지 방법이 있음. 
+Named exports
+export { myFunction };
+export const foo = Math.sqrt(2);
+Named exports는 여러값을 export 하는데 유용합니다. export 된 이름을 사용하여 import 하여 사용할 수 있습니다.
+
+Default exports
+export default myFunctionOrClass // 여기에는 세미콜론이 없습니다.
+모듈 당 딱 한 개의 default export만 있어야 합니다. default export로 객체, 함수 클래스 등이 될 수 있습니다. 
+
+가장 간단하게 export 할 수 있으며, 딱 한개만 default export를 할 수 있기 때문에, "메인" 이라고 할 수 있는 것을 default export 하는 것이 좋습니다.
+
+
+named 는 한번에 여러개를 공유할 수 있는데, 단 동일한 이름으로 다른 곳에서도 써야됨.
+
+export let myValue = 3; // test.js
+
+import myValue from ./test.js 
+
+허나 default 의 경우 다른 이름으로도 사용이 가능하다. (우리가 여기서 만들때도 app 대신 딴거 써도 돌아간다.)
+근데 그래서 그런지 defualt 는 모듈당 한개만 사용할 수 있음. 두개 쓰면 안됨.
+
+// file test.js
+let k; export default k = 12;
+
+// some other file
+import m from './test'; // note that we have the freedom to use import m instead of import k, because k was default export
+console.log(m);        // will log 12
+
+만약 named 를 쓰고 싶고, 이름을 바꾸고 싶으면 아래처럼 as 를 사용하면 된다.
+export { myFunction as function1,
+         myVariable as variable };
+
+///////////////////////////// import export 예제 ////////////////////////////////////
+Named exports
+아래와 같이 export 할 수 있습니다.
+// module "my-module.js"
+function cube(x) {
+    return x * x * x;
+}
+const foo = Math.PI + Math.SQRT2;
+export { cube, foo };
+위의 export된 값들을 import하여 사용할 때 아래와 같이 사용할 수 있습니다.
+
+import { cube, foo } from 'my-module';
+console.log(cube(3)); // 27
+console.log(foo);    // 4.555806215962888
+
+
+
+Default exports
+아래와 같이 Default export 할 수 있습니다.
+
+// module "my-module.js"
+let cube = function cube(x) {
+    return x * x * x;
+}
+export default cube;
+default exports된 값을 import 하는 방법은 아래와 같습니다.
+
+// module "my-module.js"
+import myFunction from 'my-module';
+console.log(myFunction(3)); // 27
+

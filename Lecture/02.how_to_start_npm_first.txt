@@ -1,0 +1,20 @@
+///////////////////////// npm 초기 사용 /////////////////////////////////
+
+ node js 설치 시, npm 도 같이 설치된다.
+
+* npm init : npm 에서 제공하는 프로젝트 initalize  >> package.json 파일을 작성됨.
+
+* npm install express : express 모듈 설치
+
+* git ignore 파일 만들어서 node_modules 및 package-lock 를 ignore (왜냐면 굳이 무거운 파일을 안올려도됨)  
+>> 다른 컴퓨터에서 써도 npm install 하면 dependencies 보고 자동으로 다운받음 (packages.json 에 있다.)
+
+
+ package.json : 컨트롤 타워로 만들자
+>> 시작될때 (npm start)마다 node index.js 실행 되게 만듬 (scripts 사용)
+
+
+<nodeJS 로 javascripts 실행>
+node console.log("seevalnyun"); 일케 하면된다.
+
+
