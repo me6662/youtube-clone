@@ -1,5 +1,9 @@
 // const express = require("express"); //require : nodemodule을 어딘가에서 가져오는거 > 여기서는 내 폴더에서 찾으려고 할 것.
-import express from "express"; //이게 최신의 JS 버전
+import express from "express"; // import 명령 : ES6 부터 사용가능
+import morgan from "morgan";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 
 const app = express(); // 찾은거니까 express 함수써서 express 객체 생성
 
@@ -33,14 +37,18 @@ const betweenTest = (req, res, next) => {
 //app.get("/", betweenHome, handleHome); // "/" 는 home url 주소. , 브라우저가 get 함수를 실행했으므로 (user 요청) 응답해야됨.
 // betweenHome 은 request 와 respond 사이에 껴있음. 오직 "/" route 에만 작용.
 
-app.use(betweenHome); // 이렇게 하면, 모든 웹사이트 응답에 사이에 끼게 됨.
-// 여기서 순서가 중요한데 get 에서 route 를 찾기전에 이 middle ware 들이 실행되는 것이다.
-// request 가 와서 app 는 "/" 와 "/profile" route 를 찾기 전에 betweenHome 미들웨어를 무조건 실행하게 된다. 이게 더 뒤로 가거나 하면 안됨
-// 그리고 route 전에는 원하는 만큼의 middleware를 써도된다.
+app.use(morgan("dev"));
+app.use(helmet());
 
-app.get("/", handleHome);
+/* Middle ware 가 연결을 끊는법
+middleware 가 get 전에 응답을 해버리면 연결이 성사가 안됨.
+*/
 
-app.use(betweenTest);
+const middleware = (req, res, next) => {
+  res.send("not happnening. by MW.");
+};
+
+app.get("/", middleware, handleHome);
 
 app.get("/profile", handleProfile); // "/profile" 이렇게 route 가 생성 (단순히 객체가 생성된다고 생각하면 될듯) 되고 handler 와 묶임.
 
