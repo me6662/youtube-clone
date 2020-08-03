@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 
 const app = express(); // 찾은거니까 express 함수써서 express 객체 생성
-const k = 2;
 
 const PORT = 4000;
 
@@ -26,4 +25,5 @@ app.get("/profile", handleProfile); // "/profile" 이렇게 route 가 생성 (�
 
 export default app; // 누군가가 내 파일을 불러올때 (import) app object 를 주겠다는 말, app object는 위에서 우리가 설정한 것들 (use, get 등)
 
+const k = 2;
 export { k as seevalnom };

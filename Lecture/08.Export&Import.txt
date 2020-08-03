@@ -11,12 +11,14 @@ Javascript 에는 모듈이라는게 있어서 코드를 공유할 수 있음, �
 export default app 이렇게 하면 밖에서 import 할 수 있음.
 
 *** export 에는 크개 named 와 default 두 가지 방법이 있음. 
-Named exports
+[Named exports]
+
 export { myFunction };
 export const foo = Math.sqrt(2);
 Named exports는 여러값을 export 하는데 유용합니다. export 된 이름을 사용하여 import 하여 사용할 수 있습니다.
 
-Default exports
+[Default exports]
+
 export default myFunctionOrClass // 여기에는 세미콜론이 없습니다.
 모듈 당 딱 한 개의 default export만 있어야 합니다. default export로 객체, 함수 클래스 등이 될 수 있습니다. 
 

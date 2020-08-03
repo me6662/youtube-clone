@@ -47,13 +47,6 @@ const betweenTest = (req, res, next) => {
 //app.get("/", betweenHome, handleHome); // "/" 는 home url 주소. , 브라우저가 get 함수를 실행했으므로 (user 요청) 응답해야됨.
 // betweenHome 은 request 와 respond 사이에 껴있음. 오직 "/" route 에만 작용.
 
-const betweenTest = (req, res, next) => {
-  console.log("I only tested before profile.");
-  next();
-};
-
-//app.get("/", betweenHome, handleHome); // "/" 는 home url 주소. , 브라우저가 get 함수를 실행했으므로 (user 요청) 응답해야됨.
-// betweenHome 은 request 와 respond 사이에 껴있음. 오직 "/" route 에만 작용.
 
 app.use(betweenHome); // 이렇게 하면, 모든 웹사이트 응답에 사이에 끼게 됨.
 // 여기서 순서가 중요한데 get 에서 route 를 찾기전에 이 middle ware 들이 실행되는 것이다.

@@ -10,11 +10,12 @@
 >> 다른 컴퓨터에서 써도 npm install 하면 dependencies 보고 자동으로 다운받음 (packages.json 에 있다.)
 
 
- package.json : 컨트롤 타워로 만들자
->> 시작될때 (npm start)마다 node index.js 실행 되게 만듬 (scripts 사용)
+ package.json : 일종의 패키지 컨트롤 타워!
+>> 시작될때 (npm start)마다 node index.js 실행 되게 만들자! (scripts 사용)
 
 
-<nodeJS 로 javascripts 실행>
-node console.log("seevalnyun"); 일케 하면된다.
+///////////////////////// nodeJS 로 javascripts 실행 /////////////////////////
+터미널에서
+node → console.log("seevalnyun"); 일케 하면된다.
 
 

@@ -1,6 +1,6 @@
 ///////////////////// Git 에 변경사항 발행하기 ////////////////////////////////////
 
-* git remote add origin <repo 주소> : git clone 이라고 원격저장소 (인터넷에있는 저장소) 를 불러와서 origin 에 붙여야 발행가능.
+* git remote add origin <repo 주소> : git clone 또는 원격저장소 (인터넷에있는 저장소) 를 불러와서 origin 에 붙여야 발행가능.
 
 Directory : 작업디렉토리 (실제파일로 구성)
 Index : 준비영역 (staging Area)
