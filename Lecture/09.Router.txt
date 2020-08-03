@@ -1,0 +1,45 @@
+//////////////////////////////////// Router /////////////////////////////////////////
+
+Express 의 Router 는 route 들의 복잡함을 쪼개주는데 사용할 수 있다.
+
+밑에 app get 함수에 route 를 "/" 혹은 "/profile" 이렇게 쓰는 것은 간단한데 길어지면 복잡하다.
+
+****************************************** 
+app.get("/", handleHome);
+app.get("/profile", handleProfile);
+****************************************** 
+
+예를들어서
+
+/user/edit
+/user/password
+/user/logout
+
+이런 경우 우리는 router 를 쓸수 있다.
+
+router.js 코딩을 참고해보자.
+
+const userRouter = express.Router(); 
+> 여기서 Router를 만들고 userRouter 라 명명한다.
+
+userRouter.get("/", (req, res) => res.send("user index"));
+userRouter.get("/edit", (req, res) => res.send("user edit"));
+userRouter.get("/password", (req, res) => res.send("user password"));
+> get 함수를 등록해준다.  
+
+그런 다음에, app.js 함수에서 
+import { userRouter } from "./router"; 으로 받아주고
+app.use("/user", userRouter); 이렇게 써주면
+
+사용자가 http://localhost:4000/user url 접근 시
+Browser 는 /user 에 등록된 userRouter 안의 
+/user 에 등록된 핸들러를 응답한다.
+
+중요한 점은 router 를 이용해서 
+존나게 모듈별로 쪼갤수 있다는 점이다! 
+
+Divide and Conquer!!
+
+
+
+

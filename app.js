@@ -4,6 +4,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import { userRouter } from "./router";
 
 const app = express(); // 찾은거니까 express 함수써서 express 객체 생성
 
@@ -23,7 +24,9 @@ app.get("/", handleHome);
 
 app.get("/profile", handleProfile); // "/profile" 이렇게 route 가 생성 (단순히 객체가 생성된다고 생각하면 될듯) 되고 handler 와 묶임.
 
+app.use("/user", userRouter);
+
 export default app; // 누군가가 내 파일을 불러올때 (import) app object 를 주겠다는 말, app object는 위에서 우리가 설정한 것들 (use, get 등)
 
-const k = 2;
+const k = "seevalsaeki";
 export { k as seevalnom };
