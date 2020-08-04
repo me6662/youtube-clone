@@ -1,0 +1,37 @@
+////////////////////////// MVC Pattern //////////////////////////
+
+M : Model
+V : View
+C : Control
+
+Model 은 데이터를 의미한다.                     data
+View 는 그 데이터가 어떻게 생겼는지를 의미한다.   how does the data look
+Controller 는 데이터를 보여주는 함수이다.        function that looks for the data
+
+이 MVC 는 일종의 패턴이다.
+그니까 존나게 좋아서 사람들이 많이쓰는 구조(Structure) 라고 보면된다.
+
+존나게 좋은거니까 우리도 써야된다.
+
+그렇다고 뭔가 패키지를 설치해야 하는것도 아니고 어디서 뭔가를 복사하는 것도 아니다.
+
+이전에 배운 router.js 를 보면
+
+M 은 database 인데 나중에 배울 것이고
+V 는 template 인데 이것도 나중에 배울거
+C 는 아래와 같이 userRouter에서 URL 에 연결한 함수이다.
+
+userRouter.get("/", (req, res) => res.send("user index"));
+userRouter.get("/edit", (req, res) => res.send("user edit"));
+userRouter.get("/password", (req, res) => res.send("user password"));
+*** 여기서 (req,res) => res.send~~ 이거
+
+개념은 이러하고, 먼저 해야할 것은 이것들을 각각 분리하는 것이다.
+
+userRouter , videoRouter,
+globalRouter 로 분리했다.  (URL Divide , conquer)
+
+여기서 globalRouter는 "/" URL 주소를 처리하기 위한 전역 라우터이다.
+globalRouter는 
+"/" 를 루트로 하는 "/join" , "/aboutpage" 등을 다룰것이다.
+

@@ -31,6 +31,9 @@ userRouter.get("/password", (req, res) => res.send("user password"));
 import { userRouter } from "./router"; 으로 받아주고
 app.use("/user", userRouter); 이렇게 써주면
 
+* get 은 응답을 특정 URL 에 직접적으로 등록하는 함수
+* use 는 간접적으로 사용한다는 의미. 
+
 사용자가 http://localhost:4000/user url 접근 시
 Browser 는 /user 에 등록된 userRouter 안의 
 /user 에 등록된 핸들러를 응답한다.
