@@ -16,7 +16,7 @@ app.use(cookieParser()); // User 로부터 쿠키를 받도록함.
 app.use(bodyParser.json()); //User 로부터 json 받을때 이해하도록함.
 app.use(bodyParser.urlencoded({ extended: true })); //User 로부터 Html 받을때 이해하도록함.
 app.use(helmet()); // NodeJS 보안 기능추가
-app.use(morgan("dev")); // Terminal 에 로그남김.
+app.use(morgan("dev")); // Terminal 에 로그남김. (development 모드)
 
 app.use("/", globalRouter);
 app.use("/users", userRouter);
