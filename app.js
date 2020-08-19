@@ -19,7 +19,7 @@ app.use(helmet()); // NodeJS 보안 기능추가
 app.use(morgan("dev")); // Terminal 에 로그남김.
 
 app.use("/", globalRouter);
-app.use("/user", userRouter);
-app.use("/video", videoRouter);
+app.use("/users", userRouter);
+app.use("/videos", videoRouter);
 
 export default app; // 누군가가 내 파일을 불러올때 (import) app object 를 주겠다는 말, app object는 위에서 우리가 설정한 것들 (use, get 등)
