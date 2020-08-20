@@ -5,4 +5,9 @@ import express from "express";
 
 const userRouter = express.Router();
 
+userRouter.get("/", (req, res) => res.send("fuck you. start"));
+userRouter.get("/fuck1", (req, res) => res.send("fuck you. 1"));
+userRouter.get("/fuck2", (req, res) => res.send("fuck you. 2"));
+userRouter.get("/fuck3", (req, res) => res.send("fuck you. 3"));
+
 export default userRouter;
