@@ -62,3 +62,47 @@ cookie parser : 유저의 로그인정보(?) 뭐 이딴거를 cookie 에 저장�
 형님 최종정의 : 서버가 유저가 보낸 쿠키를 이해하는 방법
 
 
+7. Router 는 무엇일까
+
+먼저 Router 가 왜필요한지부터 알아보자. 
+Express.js  를 활용한 서버는 init.js 라는 javascript 파일을 열어가지고
+User 와 Server 가 더 디테일한 상호작용을 하게 해준다고 생각된다.
+
+(상대적으로 지금까지 한 그냥 HTML 이나 CSS 파일경로를 호스팅한 서버의 
+URL 로 접속해서 보는 것보다는 말이다...)
+
+여튼 그렇게 ExpressJS 로 만든 서버를 만들면 get(유저 요청에 대한 서버의 응답) 메소드를 사용하게 되는데
+그때 route 를 매개변수로 가진다. 
+
+왜냐면 유저는 특정 route를 url 로 해서 서버에 접속 요청을 하고 서버는 그에대한 응답을 줘야한다.
+
+app.get("/", handleHome); 
+
+이렇게 말이다.
+근데 이 route 가 보통 웹사이트 드가보면 수십 수백개가 될것이다. 
+
+모든 코딩을 해보면 알겠지만 비슷한것들을 한번에 묶는걸 좋아한다. Divide & Conquer 라는 말이 있듯이!
+그래서 나온것이 Router 이다.
+
+app.use("/user", userRouter);
+
+이렇게 사용할 수 있다.
+
+이는 곧 /user 의 route 로 유저가 요청하면, userRouter 객체가 이제 담당일진이 된다는 소리다.
+
+const userRouter = express.Router();
+
+userRouter.get("/", (req, res) => res.send("fuck you. start"));
+userRouter.get("/fuck1", (req, res) => res.send("fuck you. 1"));
+userRouter.get("/fuck2", (req, res) => res.send("fuck you. 2"));
+userRouter.get("/fuck3", (req, res) => res.send("fuck you. 3"));
+
+Router 의 생김새를 보면 위와 같다.
+여러 route 에 대한 get 메소드를 볼 수 있는데..
+"/" 의 경우 "/user" 를 
+"/fuck1" 의 경우 "/user/fuck1" 을 담당한다.
+
+즉, user 부서쪽은 이제 이 userRouter 에서 담당한다는 것이다. 이제 관리가 편해질 것이디.
+
+
+

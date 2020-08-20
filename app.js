@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
+import routes from "./routes";
 
 const app = express(); // 찾은거니까 express 함수써서 express 객체 생성
 
@@ -18,8 +19,8 @@ app.use(bodyParser.urlencoded({ extended: true })); //User 로부터 Html 받을
 app.use(helmet()); // NodeJS 보안 기능추가
 app.use(morgan("dev")); // Terminal 에 로그남김. (development 모드)
 
-app.use("/", globalRouter);
-app.use("/users", userRouter);
-app.use("/videos", videoRouter);
+app.use(routes.home, globalRouter);
+app.use(routes.users, userRouter);
+app.use(routes.videos, videoRouter);
 
 export default app; // 누군가가 내 파일을 불러올때 (import) app object 를 주겠다는 말, app object는 위에서 우리가 설정한 것들 (use, get 등)
