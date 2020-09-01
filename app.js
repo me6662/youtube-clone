@@ -11,8 +11,7 @@ import routes from "./routes";
 
 const app = express(); // 찾은거니까 express 함수써서 express 객체 생성
 
-const PORT = 4000;
-
+app.set("view engine", "pug");
 app.use(cookieParser()); // User 로부터 쿠키를 받도록함.
 app.use(bodyParser.json()); //User 로부터 json 받을때 이해하도록함.
 app.use(bodyParser.urlencoded({ extended: true })); //User 로부터 Html 받을때 이해하도록함.
