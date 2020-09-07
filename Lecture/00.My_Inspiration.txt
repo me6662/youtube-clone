@@ -159,7 +159,12 @@ const {field1 : 필드1 , field1 : 필드2} = obj1 ;
 (2) 위에거를 풀면  searchingBy = req.query.term 이된다.
 
 
+9. html , label tag
 
+주로 input 이랑 같이 쓰여가지고
+for 속성에다가 ~~ 적고
+input 에서 id ~~ 주면은
+label 클릭하면 input 에 포커스가 가서 상호작용함.
 
 
 
