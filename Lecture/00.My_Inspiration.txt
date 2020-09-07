@@ -106,4 +106,67 @@ Router 의 생김새를 보면 위와 같다.
 
 
 
-asdfasdf
+8. 객체 디스트럭처링
+
+const searchingBy = req.query.term;
+  const {
+    query: { term: searchingBy },
+  } = req;
+
+  이것은
+
+  const searchingBy = req.query.term;
+
+  와 같다!!
+
+ 원래 ES5 에서는..
+
+const obj1 = {
+     field1 = 1, field2 = 2};
+
+var field1 = obj1.field1;
+var field2 = obj1.field1;
+
+이렇게 했던것을
+
+ES6 에서는
+const obj1 = {
+     field1 = 1, field2 = 2};
+
+const {field1, field2} = obj1;
+
+이렇게 줄여버릴 수 가 있다.
+
+또한 이름을 다르게 할 경우에는
+
+const {field1 : 필드1 , field1 : 필드2} = obj1 ;
+
+>>> 필드1 = obj1.field1, 필드2 = obj1.field2; 가 되는 것이다.
+된다.
+
+
+그러면 다시 처음으로 돌아가서...
+
+
+ const {
+    query: { term: searchingBy },
+  } = req;
+
+  를 보면
+
+
+(1) const {term: searchingBy}  = req.query
+(2) 위에거를 풀면  searchingBy = req.query.term 이된다.
+
+
+
+
+
+
+
+
+
+
+
+
+
